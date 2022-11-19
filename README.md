@@ -12,3 +12,9 @@ source venv/bin/activate
 pip install -r requirements.txt
 ```
 3. Tudo já deve estar configurado para esse diretório de exercício, agora basta executar os jupyter notebooks
+
+## Como executar o Orange
+
+```shell
+python -m Orange.canvas
+```
