@@ -15,7 +15,7 @@ pip install -r requirements.txt
 
 ## Como configurar o ambiente (Para códigos que estão no Google Colab)
 
-Basta clicar no botão "Google Colab" no notebook desejado para ser redirecionado para o Colab e poder executar o código
+Basta clicar no botão "Open in Colab" no notebook desejado para ser redirecionado para o Colab e poder executar o código
 
 ## Como executar o Orange
 
