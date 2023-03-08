@@ -11,7 +11,7 @@ virutalenv venv
 source venv/bin/activate
 pip install -r requirements.txt
 ```
-3. Tudo já deve estar configurado para esse diretório de exercício, agora basta executar os jupyter notebooks
+3. Tudo já deve estar configurado para esse diretório de exercício, agora basta executar os jupyter notebooks ou scripts do python
 
 ## Como configurar o ambiente (Para códigos que estão no Google Colab)
 
