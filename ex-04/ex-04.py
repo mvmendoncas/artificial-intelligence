@@ -46,52 +46,155 @@ class Graph:
                     
         return came_from, cost_so_far
 
-
-#Exemplo de uso 
-
-graph = Graph()
-graph.add_node((0, 0))
-graph.add_node((1, 0))
-graph.add_node((2, 0))
-graph.add_node((2, 1))
-graph.add_node((2, 2))
-graph.add_node((1, 2))
-graph.add_node((0, 2))
-graph.add_edge((0, 0), (1, 0), 1)
-graph.add_edge((1, 0), (2, 0), 1)
-graph.add_edge((2, 0), (2, 1), 1)
-graph.add_edge((2, 1), (2, 2), 1)
-graph.add_edge((2, 2), (1, 2), 1)
-graph.add_edge((1, 2), (0, 2), 1)
-graph.add_edge((0, 2), (0, 0), 1)
-
-start = (0, 0)
-goal = (2, 2)
+    def print_graph(self):
+        print("Vértices:")
+        for node in self.nodes:
+            print(node)
+        print("Arestas:")
+        for from_node, edges in self.edges.items():
+            for to_node in edges:
+                cost = self.cost[(from_node, to_node)]
+                print(f"{from_node} -> {to_node}: {cost}")
 
 
-came_from, cost_so_far = graph.a_star_search(start, goal)
-print("Caminho:", end=" ")
-node = goal
-while node != start:
-    print(node, end=" ")
-    node = came_from[node]
-print(start)
+def imprimirVertice(graph):
 
-print("Custo total:", cost_so_far[goal])
+    print("Conjunto de Vertices:")
+    for element in graph.nodes: # Lê todos os vertices do grafo
+        print(element)
+
+
+def isTrue(graph, node):
+    verify = False
+    for n in graph.nodes:
+        if n == node:
+            verify = True
+
+    return verify
+
+#Exemplo de uso
+
+def teste():
+    graph = Graph()
+    graph.add_node((0, 0))
+    graph.add_node((1, 0))
+    graph.add_node((2, 0))
+    graph.add_node((2, 1))
+    graph.add_node((2, 2))
+    graph.add_node((1, 2))
+    graph.add_node((0, 2))
+    graph.add_edge((0, 0), (1, 0), 1)
+    graph.add_edge((1, 0), (2, 0), 1)
+    graph.add_edge((2, 0), (2, 1), 1)
+    graph.add_edge((2, 1), (2, 2), 1)
+    graph.add_edge((2, 2), (1, 2), 1)
+    graph.add_edge((1, 2), (0, 2), 1)
+    graph.add_edge((0, 2), (0, 0), 1)
+
+    start = (0, 0)
+    goal = (2, 2)
+
+    came_from, cost_so_far = graph.a_star_search(start, goal)
+
+    imprimirVertice(graph)
+
+    print("Vertice inicial: (0,0)")
+    print("Vertice final: (2,2)")
+    print("Caminho:", end=" ")
+    node = goal
+    while node != start:
+        print(node, end=" ")
+        node = came_from[node]
+    print(start)
+
+    print("Custo total:", cost_so_far[goal])
 
 #Rsultado
 #Caminho: (2, 2) (2, 1) (2, 0) (1, 0) (0, 0)
 #Custo total: 4
 
 """
+
 Isso significa que o menor caminho entre os pontos (0, 0) e (2, 2) 
 no grafo fornecido tem custo total de 4, e é dado pelos pontos (0, 0), 
 (0, 2), (1, 2), (2, 1) e (2, 2).
+
 """
 
+if __name__ == "__main__":
+    while True:
+        type_of_execution = int(input("Você quer executar um grafo de teste (1), criar seu proprio grafo (2) ou sair do programa (-1)? "))
 
+        if type_of_execution == 1:
+            teste() # Chama o grafo de teste acima
 
+        elif type_of_execution == 2: # Criação do grafo
+            graph = Graph() # Inicialização do grafo
 
+            n_vertex = int(input("Digite a quantidade de vertices"))
+            n_edges = int(input("Digite a quantidade de arestas"))
 
+            aux1 = 0
+            while aux1 < n_vertex:
+                vertex = tuple(input("Digite o valor dos vertices separados por ',': ").split(","))
+                if len(vertex) != 2:
+                    print("Um vértice só pode ter dois valores, pois representa um ponto no expaço euclidiano 2D")
+                elif n_vertex in graph.nodes:
+                    print("Esse vértice já existe!")
+                else:
+                    graph.add_node(vertex)
+                    aux1 += 1
 
+            aux2 = 0
+            while aux2 < n_edges:
+                vertex_x = tuple(input("Digite o valor do vertice 1, separado por ',': ").split(","))
+                vertex_y = tuple(input("Digite o valor do vertice 2, separado por ',': ").split(","))
 
+                if len(vertex_x) != 2:
+                    print("O vértice 1 só pode ter dois valores, pois representa um ponto no expaço euclidiano 2D")
+                elif len(vertex_y) != 2:
+                    print("O vértice 2 só pode ter dois valores, pois representa um ponto no expaço euclidiano 2D")
+                elif vertex_x not in graph.nodes:
+                    print("O vértice 1 não está no grafo")
+                elif vertex_y not in graph.nodes:
+                    print("O vértice 2 não está no grafo")
+                else:
+                    weight = int(input("Digite o peso da aresta: "))
+                    graph.add_edge(vertex_x, vertex_y, weight) # Inserir uma nova aresta
+                    n_edges -= 1
+
+                    print("Grafo criado")
+                    graph.print_graph()
+
+            # CRIAR FUNÇÃO PARA PRINTAR O GRAFO
+
+            start = tuple(input("Digite o vertice de início, separado por ',': ").split(","))
+            goal = tuple(input("Digite o vertice final, separado por ',': ").split(","))
+
+            if len(start) != 2:
+                print("O vértice de inicio só pode ter dois valores, pois representa um ponto no expaço euclidiano 2D")
+            elif len(goal) != 2:
+                print("O vértice final só pode ter dois valores, pois representa um ponto no expaço euclidiano 2D")
+            elif start not in graph.nodes:
+                print("O vértice de inicio não está no grafo")
+            elif goal not in graph.nodes:
+                print("O vértice final não está no grafo")
+
+            came_from, cost_so_far = graph.a_star_search(start, goal)
+
+            imprimirVertice(graph)
+
+            print("Vertice inicial: ", start)
+            print("Vertice final: ", goal)
+            print("Caminho:", end=" ")
+            node = goal
+            while node != start:
+                print(node, end=" ")
+                node = came_from[node]
+            print(start)
+
+            print("Custo total:", cost_so_far[goal])
+
+        elif type_of_execution == -1:
+            print("Fim do programa :)")
+            break
